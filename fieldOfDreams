@@ -68,13 +68,13 @@ public class Main {
         }
         String enteredLetter = scanner.nextLine();
         int someNumber = 0;
-        while (!word[randomWord].equals(result.toString())){
+        while (!word[randomWord].equals(result.toString())&&pointArray[playerOrder]<600){
             System.out.println(hint[randomWord]);
             System.out.print("Player "+array.get(playerOrder)+" please name the letter: ");
             
             String letter = scanner.nextLine();
+            
             System.out.print("\033[H\033[2J");
-            int count = 0;
             for(int i=0; i<alphabet.length; i++){
                 if(alphabet[i].contains(letter)){
                     array2.remove(alphabet[i]);                
@@ -98,10 +98,11 @@ public class Main {
             System.out.println(result.toString());
             if(word[randomWord].contains(letter)){
                 pointArray[playerOrder]=pointArray[playerOrder]+pointForLetter(randomWord)+someNumber;
+                
             }
             System.out.println(Arrays.toString(pointArray));
             if(word[randomWord].contains(letter)){
-                while(word[randomWord].contains(letter)&&!word[randomWord].equals(result.toString())){
+                while(word[randomWord].contains(letter)&&!word[randomWord].equals(result.toString())&&pointArray[playerOrder]<600){
                     System.out.println(hint[randomWord]);
                     System.out.print("Player "+array.get(playerOrder)+" please name the letter one more time: ");
                     letter = scanner.nextLine();
@@ -134,12 +135,33 @@ public class Main {
                 }
 
             }
-            playerOrder++;
-            if(playerOrder==playersCount1--){
-                playerOrder=0;
+            if(pointArray[playerOrder]<600){
+                playerOrder++;
+                if(playerOrder>=playersCount1){
+                    playerOrder=0;
+                }
             }
             
+            
+            
+            
         }
+        if(pointArray[playerOrder]>600||pointArray[playerOrder]==600){
+            String participant = array.get(playerOrder);
+            array.remove(playerOrder);
+            int num = array.size();
+            for(int i=0; i<num; i++){
+                System.out.print("Player "+array.get(i)+" you have a chance to name the word:");
+                String chanceToWin = scanner.nextLine();
+                if(chanceToWin.equals(word[randomWord])){
+                    System.out.println("Player "+array.get(i)+" congratulations, you win!!!");
+                    break;
+                }
+            }
+            System.out.println("Player "+participant+" congratulations, you win!!!");
+            
+        }
+        
         
     
 
