@@ -1,0 +1,120 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please enter count of players: ");
+        int playersCount = scanner.nextInt();
+        
+        ArrayList<String> array = new ArrayList<String>();
+        while(playersCount!=0){
+            System.out.print("Enter your name: ");
+            String name = scanner.next();
+            array.add(name);
+            playersCount--;
+        }
+        Collections.shuffle(array);
+        System.out.println(array);
+        
+        String[] word = new String [10];
+        word[0]= "computer";
+        word[1] = "fan";
+        word[2] = "poetry";
+        word[3] = "komuz";
+        word[4] = "camel";
+        word[5] = "claustrophobia";
+        word[6] = "vocabulary";
+        word[7] = "camp";
+        word[8] = "ghost";
+        word[9] = "atom";
+        
+        String[] hint = new String [10];
+        hint[0] = "An electronic device that manipulates information, or data. It has the ability to store, retrieve, and process data.";
+        hint[1] = "A device that is held in the hand and moved back and forth to cool a person and that is usually shaped like a segment of a circle.";
+        hint[2] = "A form of literature that uses aesthetic and often rhythmic qualities of language − such as phonaesthetics, sound symbolism.";
+        hint[3] = "An ancient fretless string instrument used in Central Asian music, related to certain other Turkic string instruments.";
+        hint[4] = "Any of three species of large ruminating hoofed mammals of arid Africa and Asia known for their ability to go for long periods without drinking.";
+        hint[5] = "An anxiety disorder that causes an intense fear of enclosed spaces.";
+        hint[6] = "A list or collection of words or of words and phrases usually alphabetically arranged and explained or defined. ";
+        hint[7] = "A collection of tents or caravans where people are living or staying, usually temporarily while they are travelling.";
+        hint[8] = "The soul of a dead person, a disembodied spirit imagined, usually as a vague, shadowy or evanescent form.";
+        hint[9] = "Smallest unit into which matter can be divided without the release of electrically charged particles. ";
+        
+        
+        
+        int startOfRange = 0;
+        int endOfRange = 9;
+        int randomWord = startOfRange + (int)(Math.random() * (endOfRange - startOfRange + 1));
+        
+        unknownWord(randomWord);
+        
+        int playerOrder = 0;
+        
+        StringBuilder result = new StringBuilder();
+        ArrayList<Character> array1 = new ArrayList<>();
+        ArrayList<String> array2 = new ArrayList<String>();
+        String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+        for(int i = 0; i<alphabet.length; i++ ){
+            array2.add(alphabet[i]);  
+        }
+        String enteredLetter = scanner.nextLine();
+        while (!word[randomWord].equals(result.toString())){
+            System.out.println(hint[randomWord]);
+            System.out.print("Player "+array.get(playerOrder)+" please name the letter: ");
+            
+            String letter = scanner.nextLine();
+            int count = 0;
+            for(int i=0; i<alphabet.length; i++){
+                if(alphabet[i].contains(letter)){
+                    array2.remove(alphabet[i]);                }
+            }
+            System.out.println(array2);
+
+            result.delete(0, result.length());
+            if(word[randomWord].contains(letter)){
+                array1.add(letter.charAt(0));
+            }
+            for(char wordsChar : word[randomWord].toLowerCase().toCharArray()){
+                if(array1.contains(wordsChar)){
+                    result.append(wordsChar);
+                }
+                else{
+                    result.append('□');
+                }
+                
+            }
+            System.out.println(result.toString());
+            playerOrder++;
+            if(playerOrder>=playersCount){
+                playerOrder = 0;
+            }
+            
+            
+        }
+        
+    
+
+    }
+    public static void unknownWord(int randomWord){
+        String[] word = new String [10];
+        word[0]= "computer";
+        word[1] = "fan";
+        word[2] = "poetry";
+        word[3] = "komuz";
+        word[4] = "camel";
+        word[5] = "claustrophobia";
+        word[6] = "vocabulary";
+        word[7] = "camp";
+        word[8] = "ghost";
+        word[9] = "atom";
+        char[] chars = word[randomWord].toCharArray();
+        for(char c : chars){
+            c = '□';
+            System.out.print(c);
+        }
+        System.out.println();
+    }
+    
+    
+}
