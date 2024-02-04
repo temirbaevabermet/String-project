@@ -50,7 +50,7 @@ public class Main {
         unknownWord(randomWord);
         
         int playerOrder = 0;
-        
+        int b = playersCount-1;
         StringBuilder result = new StringBuilder();
         ArrayList<Character> array1 = new ArrayList<>();
         ArrayList<String> array2 = new ArrayList<String>();
@@ -59,11 +59,12 @@ public class Main {
             array2.add(alphabet[i]);  
         }
         String enteredLetter = scanner.nextLine();
+        
         while (!word[randomWord].equals(result.toString())){
             System.out.println(hint[randomWord]);
             System.out.print("Player "+array.get(playerOrder)+" please name the letter: ");
-            
             String letter = scanner.nextLine();
+            
             int count = 0;
             for(int i=0; i<alphabet.length; i++){
                 if(alphabet[i].contains(letter)){
@@ -85,11 +86,33 @@ public class Main {
                 
             }
             System.out.println(result.toString());
-            playerOrder++;
-            if(playerOrder>=playersCount){
-                playerOrder = 0;
-            }
             
+            if(word[randomWord].contains(letter)){
+                System.out.println(hint[randomWord]);
+                System.out.print("Player "+array.get(playerOrder)+" please name the letter one more time: ");
+                letter = scanner.nextLine();
+                for(int i=0; i<alphabet.length; i++){
+                    if(alphabet[i].contains(letter)){
+                        array2.remove(alphabet[i]);                }
+                }
+                System.out.println(array2);
+
+                result.delete(0, result.length());
+                if(word[randomWord].contains(letter)){
+                    array1.add(letter.charAt(0));
+                }
+                for(char wordsChar : word[randomWord].toLowerCase().toCharArray()){
+                    if(array1.contains(wordsChar)){
+                        result.append(wordsChar);
+                    }
+                    else{
+                        result.append('□');
+                    }
+                
+                }
+                System.out.println(result.toString());
+            }
+            playerOrder++;
             
         }
         
@@ -115,6 +138,7 @@ public class Main {
         }
         System.out.println();
     }
+    
     
     
 }
